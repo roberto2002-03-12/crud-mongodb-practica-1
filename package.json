@@ -1,0 +1,30 @@
+{
+  "name": "crud-api-mongodb",
+  "version": "1.0.0",
+  "description": "Es una api utilizando mongodb, es para practicar y hacer pruebas con la base de datos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "crud",
+    "api",
+    "mongodb",
+    "oneToOne",
+    "oneToMany",
+    "manyToMany"
+  ],
+  "author": "Emilio Roberto Fabriciano Contreras Gonzales",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
