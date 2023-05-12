@@ -30,7 +30,7 @@ const updateCustomer = async(id, obj) => {
 
   const result = await customer.updateOne(obj);
 
-  return result;
+  return 'Customer updated';
 };
 
 const deleteCustomer = async(id) => {
