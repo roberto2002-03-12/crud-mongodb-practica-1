@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const bookModel = new mongoose.Schema({
   title: {
@@ -9,10 +10,11 @@ const bookModel = new mongoose.Schema({
     type: String,
     required: true
   },
-  gender: {
-    type: String,
-    required: true
-  },
+  gender: [{
+    type: Schema.Types.ObjectId,
+    ref: 'gender',
+    required: false
+  }],
   summary: {
     type: String,
     required: true

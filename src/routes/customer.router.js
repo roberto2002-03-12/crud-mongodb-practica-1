@@ -11,8 +11,7 @@ router.get('/',
       const result = await getCustomers();
       res.status(200).json(result);
     } catch(err) {
-      res.status(500).json('error en el servidor');
-      console.error(err);
+      next(err);
     }
   }
 );
@@ -24,8 +23,7 @@ router.post('/',
       const result = await createCustomer(req.body);
       res.status(201).json(result);
     } catch (err) {
-      res.status(500).json('error en el servidor');
-      console.error(err);
+      next(err);
     }
   }
 );
@@ -38,8 +36,7 @@ router.get('/:id',
       const result = await findCustomer(id);
       res.status(200).json(result);
     } catch (err) {
-      res.status(500).json('error en el servidor');
-      console.error(err);
+      next(err);
     }
   }
 );
@@ -53,8 +50,7 @@ router.put('/:id',
       const result = await updateCustomer(id, req.body);
       res.status(201).json(result);
     } catch (err) {
-      res.status(500).json('error en el servidor');
-      console.error(err);
+      next(err);
     }
   }
 );
@@ -67,8 +63,7 @@ router.delete('/:id',
       const result = await deleteCustomer(id);
       res.status(201).json(result);
     } catch (err) {
-      res.status(500).json('error en el servidor');
-      console.error(err);
+      next(err);;
     }
   }
 );

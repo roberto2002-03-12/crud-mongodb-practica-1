@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
+
 const customerModel = new mongoose.Schema({
   firstName: {
     type: String,
@@ -20,7 +22,12 @@ const customerModel = new mongoose.Schema({
   birth: {
     type: Date,
     required: true
-  }
+  },
+  order: [{
+    type: Schema.Types.ObjectId,
+    ref: 'order',
+    required: false
+  }]
 });
 
 const customer = mongoose.model('customer', customerModel);

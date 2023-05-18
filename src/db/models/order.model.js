@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const orderModel = new mongoose.Schema({
-  user: {
+  customer: {
     type: Schema.Types.ObjectId,
     ref: 'customer',
     required: true
@@ -13,7 +13,7 @@ const orderModel = new mongoose.Schema({
     ref: 'order_detail',
     required: false
   }],
-  total: {
+  total: { //el total se va obtener cuando se agregue un orderDetailModel
     type: Number,
     required: false,
   }

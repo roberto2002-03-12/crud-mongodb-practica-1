@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const Customer = require('../db/models/customer.router');
+const Customer = require('../db/models/customer.model');
 
 const getCustomers = async() => {
   //populate muestra las relaciones que tiene customers
@@ -28,7 +28,7 @@ const updateCustomer = async(id, obj) => {
 
   if (!customer) throw boom.notFound('Customer not found');
 
-  const result = await customer.updateOne(obj);
+  await customer.updateOne(obj);
 
   return 'Customer updated';
 };
