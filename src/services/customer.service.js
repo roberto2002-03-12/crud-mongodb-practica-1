@@ -28,17 +28,27 @@ const updateCustomer = async(id, obj) => {
 
   if (!customer) throw boom.notFound('Customer not found');
 
+  if (obj.order) {
+    obj.$addToSet = {
+      order: obj.order
+    };
+    delete obj.order;
+  };
+
+  if (obj.orderToRemove) {
+    obj.$pull = {
+      order: { $in: obj.orderToRemove }
+    };
+    delete obj.orderToRemove;
+  };
+
   await customer.updateOne(obj);
 
   return 'Customer updated';
 };
 
 const deleteCustomer = async(id) => {
-  const customer = await Customer.findById(id);
-
-  if (!customer) throw boom.notFound('Customer not found');
-
-  await customer.deleteOne();
+  await Customer.findOneAndDelete({_id: id});
 
   return 'Customer deleted'
 };

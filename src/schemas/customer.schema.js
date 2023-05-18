@@ -6,13 +6,15 @@ const lastName = Joi.string();
 const phoneNumber = Joi.number();
 const email = Joi.string().email();
 const birth = Joi.date();
+const orders = Joi.array().items(Joi.string().max(65));
 
 const createCustomerSchema = Joi.object({
   firstName: firstName.required(),
   lastName: lastName.required(),
   phoneNumber: phoneNumber.required(),
   email: email.required(),
-  birth: birth.required()
+  birth: birth.required(),
+  orders: orders.optional()
 });
 
 const updateCustomerSchema = Joi.object({
@@ -20,7 +22,8 @@ const updateCustomerSchema = Joi.object({
   lastName: lastName.optional(),
   phoneNumber: phoneNumber.optional(),
   email: email.optional(),
-  birth: birth.optional()
+  birth: birth.optional(),
+  orders: orders.optional()
 });
 
 const findOrDeleteCustomerSchema = Joi.object({

@@ -8,7 +8,7 @@ const createOrder = async (obj) => {
 };
 
 const getOrders = async () => {
-  const orders = await Order.find();
+  const orders = await Order.find().populate(['customer', 'orderDetail']);
 
   return orders;
 };
@@ -30,9 +30,7 @@ const updateOrder = async (id, obj) => {
 };
 
 const deleteOrder = async (id) => {
-  const order = await findOrder(id);
-
-  await order.deleteOne();
+  await Order.findOneAndDelete(id);
 
   return 'Order deleted';
 };

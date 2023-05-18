@@ -14,8 +14,8 @@ app.use(cors());
 routerApi(app);
 
 app.use(logErrors);
-app.use(errorHandler);
-app.use(boomErrorHandler);
+app.use(boomErrorHandler); //este debe ir antes de errorHandler
+app.use(errorHandler); //este después boomErrorHandler
 
 app.listen(3000, () => {
   console.log(`Corriendo en puerto 3000`);

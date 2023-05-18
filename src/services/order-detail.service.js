@@ -1,13 +1,18 @@
 const boom = require('@hapi/boom');
 const OrderDetail = require('../db/models/order-detail.model');
-const Order = require('../db/models/order.model');
+const { findBook } = require('../services/book.service');
+const { findOrder } = require('../services/order.service');
 
 const createOrderDetail = async (obj) => {
+  const book = await findBook(obj.book);
+
+  obj.total = obj.amount * book.price;
+
+  const order = await findOrder(obj.order);
+
+  if (!order.total) order.total = 0;
+
   const orderDetailCreated = await OrderDetail.create(obj);
-
-  const order = await Order.findById(obj.orderId);
-
-  if (!order) throw boom.notFound(`Order doesn't exist`);
 
   await order.updateOne({
     $addToSet: {
@@ -20,7 +25,7 @@ const createOrderDetail = async (obj) => {
 };
 
 const getOrderDetail = async () => {
-  const orderDetails = await OrderDetail.find();
+  const orderDetails = await OrderDetail.find().populate(['book', 'order']);
 
   return orderDetails;
 };
@@ -42,7 +47,9 @@ const updateOrderDetail = async (id, obj) => {
 };
 
 const deleteOrderDetail = async (id) => {
-  const orderDetail = await findOrderDetail(id);
+  const orderDetail = await OrderDetail.findById(id);
+
+  if (!orderDetail) throw boom.notFound(`Cannot delete something that doesn't exist.`);
 
   await orderDetail.deleteOne();
 
