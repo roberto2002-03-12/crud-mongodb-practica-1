@@ -12,6 +12,15 @@ const launchDate = Joi.date();
 const price = Joi.number();
 const genderToRemove = Joi.array().items(Joi.string().max(65));
 
+//filtros
+const price_high = Joi.number();
+const price_low = Joi.number();
+const launchDate_high = Joi.date();
+const launchDate_low = Joi.date();
+const order_price = Joi.string().valid('desc', 'asce');
+const order_launchDate = Joi.string().valid('desc', 'asce');
+const book_gender = Joi.string();
+
 const createBookSchema = Joi.object({
   title: title.required(),
   author: author.required(),
@@ -41,8 +50,22 @@ const getOrDeleteSchema = Joi.object({
   id: id.required()
 });
 
+const filterBooksSchema = Joi.object({
+  title: title.optional(),
+  author: author.optional(),
+  editorial: editorial.optional(),
+  price_high: price_high.optional(),
+  price_low: price_low.optional(),
+  launchDate_high: launchDate_high.optional(),
+  launchDate_low: launchDate_low.optional(),
+  order_price: order_price.optional(),
+  order_launchDate: order_launchDate.optional(),
+  book_gender: book_gender.optional()
+});
+
 module.exports = {
   createBookSchema,
   updateBookSchema,
-  getOrDeleteSchema
+  getOrDeleteSchema,
+  filterBooksSchema
 }

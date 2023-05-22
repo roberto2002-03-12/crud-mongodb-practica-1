@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { getBooks, findBook, createBook, deleteBook, updateBook } = require('../services/book.service');
-const { getOrDeleteSchema, createBookSchema, updateBookSchema } = require('../schemas/book.schema');
+const { getOrDeleteSchema, createBookSchema, updateBookSchema, filterBooksSchema } = require('../schemas/book.schema');
 const validationHandler = require('../middlewares/validator.handler');
 
 router.get('/',
+  validationHandler(filterBooksSchema, 'query'),
   async (req, res, next) => {
     try {
-      const result = await getBooks();
+      const result = await getBooks(req.query);
       res.status(200).json(result);
     } catch (err) {
       next(err);
