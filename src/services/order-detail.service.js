@@ -38,14 +38,6 @@ const findOrderDetail = async (id) => {
   return orderDetail;
 };
 
-const updateOrderDetail = async (id, obj) => {
-  const orderDetail = await findOrderDetail(id);
-
-  await orderDetail.updateOne(obj);
-
-  return 'Order detail updated';
-};
-
 const deleteOrderDetail = async (id) => {
   const orderDetail = await OrderDetail.findById(id);
 
@@ -60,6 +52,5 @@ module.exports = {
   createOrderDetail,
   getOrderDetail,
   findOrderDetail,
-  updateOrderDetail,
   deleteOrderDetail
 };

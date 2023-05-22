@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { createOrder, getOrders, findOrder, updateOrder, deleteOrder } = require('../services/order.service');
+const { createOrder, getOrders, findOrder, deleteOrder } = require('../services/order.service');
+const { createOrderSchema, findOrDeleteOrderSchema } = require('../schemas/order.schema');
 const validationHandler = require('../middlewares/validator.handler');
 
 router.get('/',
@@ -15,6 +16,7 @@ router.get('/',
 );
 
 router.post('/',
+  validationHandler(createOrderSchema, 'body'),
   async (req, res, next) => {
     try {
       const result = await createOrder(req.body);
@@ -26,6 +28,7 @@ router.post('/',
 );
 
 router.get('/:id',
+  validationHandler(findOrDeleteOrderSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -37,19 +40,8 @@ router.get('/:id',
   }
 );
 
-router.put('/:id',
-  async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const result = await updateOrder(id, req.body);
-      res.status(201).json(result);
-    } catch (err) {
-      next(err);
-    };
-  }
-);
-
 router.delete('/:id',
+  validationHandler(findOrDeleteOrderSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;

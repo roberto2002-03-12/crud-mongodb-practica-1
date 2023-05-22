@@ -12,7 +12,7 @@ const bookModel = new mongoose.Schema({
   },
   gender: [{
     type: Schema.Types.ObjectId,
-    ref: 'gender',
+    ref: 'Gender',
     required: false
   }],
   summary: {
@@ -41,5 +41,5 @@ const bookModel = new mongoose.Schema({
   }
 });
 
-const book = mongoose.model('book', bookModel);
+const book = mongoose.model('Book', bookModel);
 module.exports = book;

@@ -5,12 +5,12 @@ const Schema = mongoose.Schema;
 const orderDetailModel = new mongoose.Schema({
   book: {
     type: Schema.Types.ObjectId,
-    ref: 'book',
+    ref: 'Book',
     required: true
   },
   order: {
     type: Schema.Types.ObjectId,
-    ref: 'order',
+    ref: 'Order',
     required: true
   },
   amount: {
@@ -33,5 +33,5 @@ orderDetailModel.pre('save', function(next) {
 });
 */
 
-const orderDetail = mongoose.model('order_detail', orderDetailModel);
+const orderDetail = mongoose.model('Order_detail', orderDetailModel);
 module.exports = orderDetail;

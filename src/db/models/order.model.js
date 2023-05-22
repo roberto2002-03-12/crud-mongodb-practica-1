@@ -7,12 +7,12 @@ const Schema = mongoose.Schema;
 const orderModel = new mongoose.Schema({
   customer: {
     type: Schema.Types.ObjectId,
-    ref: 'customer',
+    ref: 'Customer',
     required: true
   },
   orderDetail: [{
     type: Schema.Types.ObjectId,
-    ref: 'order_detail',
+    ref: 'Order_detail',
     required: false
   }],
   total: { //el total se va obtener cuando se agregue un orderDetailModel
@@ -37,5 +37,5 @@ orderModel.pre('findOneAndDelete', async function(next) {
   next();
 });
 
-const order = mongoose.model('order', orderModel);
+const order = mongoose.model('Order', orderModel);
 module.exports = order;

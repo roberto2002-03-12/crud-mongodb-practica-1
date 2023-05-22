@@ -26,7 +26,7 @@ const customerModel = new mongoose.Schema({
   },
   orders: [{
     type: Schema.Types.ObjectId,
-    ref: 'order',
+    ref: 'Order',
     required: false
   }]
 });
@@ -53,5 +53,5 @@ customerModel.pre('findOneAndDelete', async function(next) {
   next();
 });
 
-const customer = mongoose.model('customer', customerModel);
+const customer = mongoose.model('Customer', customerModel);
 module.exports = customer;

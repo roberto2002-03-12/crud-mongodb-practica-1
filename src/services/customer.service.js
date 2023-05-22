@@ -3,20 +3,18 @@ const Customer = require('../db/models/customer.model');
 
 const getCustomers = async() => {
   //populate muestra las relaciones que tiene customers
-  const customers = await Customer.find().populate();
+  const customers = await Customer.find().populate('orders');
   return customers;
 };
 
 const createCustomer = async(obj) => {
-  const customer = new Customer(obj);
+  const customer = await Customer.create(obj);
 
-  const customerSaved = await customer.save();
-
-  return customerSaved;
+  return customer;
 };
 
 const findCustomer = async(id) => {
-  const customer = await Customer.findById(id);
+  const customer = await Customer.findById(id).populate('orders');
 
   if (!customer) throw boom.notFound('Customer not found');
 

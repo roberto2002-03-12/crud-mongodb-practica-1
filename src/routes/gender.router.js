@@ -32,7 +32,8 @@ router.delete('/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const result = await deleteGender()
+      const result = await deleteGender(id);
+      res.status(201).json(result);
     } catch(err) {
       next(err);
     }

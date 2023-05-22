@@ -1,8 +1,19 @@
 const boom = require('@hapi/boom');
 const Order = require('../db/models/order.model');
+const Customer = require('../db/models/customer.model');
 
 const createOrder = async (obj) => {
+  const customer = await Customer.findById(obj.customer);
+
+  if (!customer) throw boom.notFound(`Can't create an order if customer doesn't exist.`);
+
   const order = await Order.create(obj);
+
+  await customer.updateOne({
+    $addToSet: {
+      orders: order._id
+    }
+  });
 
   return order;
 };
@@ -21,14 +32,6 @@ const findOrder = async (id) => {
   return order;
 };
 
-const updateOrder = async (id, obj) => {
-  const order = await findOrder(id);
-
-  await order.updateOne(obj);
-
-  return 'Order updated';
-};
-
 const deleteOrder = async (id) => {
   await Order.findOneAndDelete(id);
 
@@ -39,6 +42,5 @@ module.exports = {
   createOrder,
   getOrders,
   findOrder,
-  updateOrder,
   deleteOrder
 };
